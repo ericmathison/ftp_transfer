@@ -2,9 +2,9 @@ require 'net/ftp'
 require 'digest/md5'
 
 class FtpTransfer
-  def initialize(local_directory, archive_dir, host, user, password)
+  def initialize(host, user, password, local_directory, archive_dir = nil)
     @local_directory = File.expand_path(local_directory)
-    @archived_orders_directory = File.expand_path(archive_dir)
+    @archive_directory = archive_dir.nil? ? nil : File.expand_path(archive_dir)
     @host = host
     @user = user
     @password = password
@@ -22,7 +22,7 @@ class FtpTransfer
       rescue
         raise Net::FTPError, 'files did not transfer successfully'
       end
-      archive_local_order(file) if transfer_success?(file)
+      archive_locally(file) if transfer_success?(file) && archive?
     end
   end
 
@@ -37,7 +37,11 @@ class FtpTransfer
     Digest::MD5.hexdigest(File.read(file))
   end
 
-  def archive_local_order(file)
-    FileUtils.move(file, @archived_orders_directory) if File.exists?(file)
+  def archive_locally(file)
+    FileUtils.move(file, @archive_directory) if File.exists?(file) && archive?
+  end
+
+  def archive?
+    !@archive_directory.nil?
   end
 end
