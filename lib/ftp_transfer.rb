@@ -3,10 +3,17 @@ require 'digest/md5'
 require 'ftp_transfer/connection_details'
 
 class FtpTransfer
-  def initialize(local_directory = '/home/eric/Desktop/sending-orders', archive_dir = '/home/eric/Desktop/archived-orders')
+  def initialize(local_directory = '/home/eric/Desktop/sending-orders',
+      archive_dir = '/home/eric/Desktop/archived-orders',
+      host = nil,
+      user = nil,
+      password = nil)
     @local_directory = File.expand_path(local_directory)
     @archived_orders_directory = File.expand_path(archive_dir)
-    @ftp = Net::FTP.new($host, $user, $password)
+    @host = host || $host
+    @user = user || $user
+    @password = password || $password
+    @ftp = Net::FTP.new(@host, @user, @password)
     @ftp.passive = true
   end
 
