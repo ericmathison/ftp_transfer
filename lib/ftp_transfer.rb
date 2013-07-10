@@ -1,23 +1,18 @@
 require 'net/ftp'
 require 'digest/md5'
-require 'ftp_transfer/connection_details'
 
 class FtpTransfer
-  def initialize(local_directory = '/home/eric/Desktop/sending-orders',
-      archive_dir = '/home/eric/Desktop/archived-orders',
-      host = nil,
-      user = nil,
-      password = nil)
+  def initialize(local_directory, archive_dir, host, user, password)
     @local_directory = File.expand_path(local_directory)
     @archived_orders_directory = File.expand_path(archive_dir)
-    @host = host || $host
-    @user = user || $user
-    @password = password || $password
+    @host = host
+    @user = user
+    @password = password
     @ftp = Net::FTP.new(@host, @user, @password)
     @ftp.passive = true
   end
 
-  def upload(remote_directory = 'public_html/new_orders')
+  def upload(remote_directory)
     @remote_directory = remote_directory
     # comment out to try a failed file transfer:
     @ftp.chdir(@remote_directory)
@@ -31,7 +26,7 @@ class FtpTransfer
     end
   end
 
-  def download(remote_directory = 'public_html/processed_orders')
+  def download(remote_directory)
   end
 
   private
