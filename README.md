@@ -12,7 +12,7 @@ FtpTransfer.new('foobar.bazquux.com',
 ```
 
 Here is an example of a download
-```
+```ruby
 FtpTransfer.new('foobar.bazquux.com',
   'user',
   'password',
