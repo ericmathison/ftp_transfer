@@ -2,12 +2,13 @@ require 'net/ftp'
 require 'digest/md5'
 
 class FtpTransfer
-  def initialize(host, user, password, local_directory, archive_dir = nil)
-    @local_directory = File.expand_path(local_directory)
-    @archive_directory = archive_dir.nil? ? nil : File.expand_path(archive_dir)
+  def initialize(host, user, password, local_directory, archive_dir = nil, options = {})
     @host = host
     @user = user
     @password = password
+    @local_directory = File.expand_path(local_directory)
+    @archive_directory = archive_dir.nil? ? nil : File.expand_path(archive_dir)
+    @pattern = options[:pattern] || '*'
     @ftp = Net::FTP.new(@host, @user, @password)
     @ftp.passive = true
   end
@@ -16,7 +17,7 @@ class FtpTransfer
     @remote_directory = remote_directory
     # comment out to try a failed file transfer:
     @ftp.chdir(@remote_directory)
-    Dir["#{@local_directory}/*.edi"].each do |file|
+    Dir["#{@local_directory}/#{@pattern}"].each do |file|
       begin
         @ftp.putbinaryfile(file)
       rescue
