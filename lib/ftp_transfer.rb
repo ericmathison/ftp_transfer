@@ -1,6 +1,7 @@
 require 'net/ftp'
 require 'digest/md5'
 require 'fileutils'
+require 'stringglob'
 
 class FtpTransfer
   def initialize(host, user, password, local_directory, options = {})
@@ -30,6 +31,18 @@ class FtpTransfer
   end
 
   def download(remote_directory)
+    @ftp.chdir(remote_directory)
+    Dir.chdir(File.expand_path(@local_directory))
+    @ftp.nlst
+      .select { |file| StringGlob.regexp(@pattern) =~ file }
+      .each do |file|
+        begin
+          @ftp.getbinaryfile(file)
+        rescue
+          raise Net::FTPError, 'files did not transfer successfully'
+        end
+        @ftp.delete(file) if transfer_success?(file)
+      end
   end
 
   private
