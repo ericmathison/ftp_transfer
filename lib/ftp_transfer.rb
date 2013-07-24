@@ -9,7 +9,9 @@ class FtpTransfer
     @password = password
     @local_directory = File.expand_path(local_directory)
     @archive_directory = nil
-    @archive_directory = File.expand_path(options[:archive_dir]) unless options[:archive_dir].nil?
+    if options[:archive_dir]
+      @archive_directory = File.expand_path(options[:archive_dir])
+    end
     @pattern = options[:pattern] || '*'
     @ftp = Net::FTP.new(@host, @user, @password)
     @ftp.passive = true
