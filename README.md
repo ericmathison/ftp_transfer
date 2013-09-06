@@ -3,7 +3,7 @@ ftp_transfer
 
 The ftp_transfer gem was designed in an attempt to create a simpler api for bulk ftp transfers.
 
-Here is an example of an upload. In this case, the optional archive directory option has been specified so a copy of the transferred files will be kept locally in that directory.
+Here is an example of an upload. In this case, the optional archive directory option has been specified so a copy of the transferred files will be kept locally in that directory. The pattern option is also optional and will default to '*'.
 ```ruby
 require 'ftp_transfer'
 FtpTransfer.new('foobar.bazquux.com',
