@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
                      lib/ftp_transfer/version.rb)
   s.licenses = ['GPL-2']
   s.add_development_dependency 'fake_ftp', '0.0.9'
-  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'minitest', '~> 5.0'
   s.add_runtime_dependency 'stringglob', '~> 0.0.3'
   s.homepage    =
     'http://github.com/ericmathison/ftp_transfer'

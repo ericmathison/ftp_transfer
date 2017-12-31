@@ -1,3 +1,4 @@
+require 'ftp_transfer/version'
 require 'net/ftp'
 require 'digest/md5'
 require 'fileutils'
