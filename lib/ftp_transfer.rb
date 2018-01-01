@@ -5,17 +5,20 @@ require 'fileutils'
 require 'stringglob'
 
 class FtpTransfer
-  def initialize(host, user, password, local_directory, options = {})
-    @host = host
-    @user = user
-    @password = password
-    @local_directory = File.expand_path(local_directory)
+  def initialize(options = {})
+    @host = options[:host]
+    @user = options[:user]
+    @password = options[:pass]
+    @local_directory = File.expand_path(options[:local_dir])
     @archive_directory = nil
     if options[:archive_dir]
       @archive_directory = File.expand_path(options[:archive_dir])
     end
     @pattern = options[:pattern] || '*'
-    @ftp = Net::FTP.new(@host, @user, @password)
+    @port = options[:port] || 21
+    @ftp = Net::FTP.new
+    @ftp.connect(@host, @port)
+    @ftp.login(@user, @password)
     @ftp.passive = true
   end
 
