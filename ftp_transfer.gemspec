@@ -12,5 +12,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'minitest', '~> 5.0'
   s.add_runtime_dependency 'stringglob', '~> 0.0.3'
   s.homepage    =
-    'http://github.com/ericmathison/ftp_transfer'
+    'https://github.com/ericmathison/ftp_transfer'
 end
