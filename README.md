@@ -10,7 +10,7 @@ FtpTransfer.new(
   host: 'foobar.bazquux.com',
   user: 'user',
   pass: 'password',
-  port: 21212 # optional param (will default to 21)
+  port: 21212, # optional param (will default to 21)
   local_dir: '~/files-to-send',
   pattern: '*.jpg',
   archive_dir: '~/archived-files').upload('file-upload-dir')
