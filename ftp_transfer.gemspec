@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'ftp_transfer'
-  s.version     = '0.0.1'
+  s.version     = '0.1.0'
   s.summary     = 'Bulk FTP Transfer'
   s.description = 'A bulk ftp transfer library'
   s.authors     = ['Eric Mathison']
