@@ -25,6 +25,10 @@ FtpTransfer.new(
 ```ruby
 port: 21212 # defaults to 21
 pattern: '*.jpg'
+```
+
+Only applies for uploads:
+```ruby
 archive_dir: '~/archived-files'
 ```
 
