@@ -1,28 +1,33 @@
-ftp_transfer
-============
+# ftp_transfer
 
-The ftp_transfer gem was designed in an attempt to create a simpler api for bulk ftp transfers.
+Handles tranfering many files at once over FTP using a higher level api than net/ftp from the standard library.
 
-Here is an example of an upload. In this case, the optional archive directory option has been specified so a copy of the transferred files will be kept locally in that directory. The pattern option is also optional and will default to '*'.
+## #upload
 ```ruby
 require 'ftp_transfer'
 FtpTransfer.new(
   host: 'foobar.bazquux.com',
   user: 'user',
   pass: 'password',
-  port: 21212, # optional param (will default to 21)
-  local_dir: '~/files-to-send',
-  pattern: '*.jpg',
-  archive_dir: '~/archived-files').upload('file-upload-dir')
+  local_dir: '~/files-to-send').upload('file-upload-dir')
 ```
 
-Here is an example of a download
+## #download
 ```ruby
 FtpTransfer.new(
   host: 'foobar.bazquux.com',
   user: 'user',
   pass: 'password',
-  local_dir: '~/received-files',
-  pattern: '*.jpg').download('file-download-dir')
+  local_dir: '~/received-files').download('file-download-dir')
 ```
-There is not currently an archive option for the download method. If you need that for your application, feel free to send a pull request.
+
+## optional settings (examples):
+```ruby
+port: 21212 # defaults to 21
+pattern: '*.jpg'
+archive_dir: '~/archived-files'
+```
+
+The pattern option will default to `'*'` when not specified.
+
+Specifying the archive directory option keeps a copy of the transferred files locally in the given directory. There is not currently an archive option for the download method (Pull requests welcome!).
