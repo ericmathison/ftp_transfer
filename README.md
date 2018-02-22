@@ -21,7 +21,7 @@ FtpTransfer.new(
   local_dir: '~/received-files').download('file-download-dir')
 ```
 
-## optional settings (examples):
+## Optional Settings (Examples):
 ```ruby
 port: 21212 # defaults to 21
 pattern: '*.jpg'
